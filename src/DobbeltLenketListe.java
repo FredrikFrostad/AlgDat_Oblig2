@@ -1,8 +1,4 @@
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class DobbeltLenketListe<T> implements Liste<T>
 {
@@ -150,14 +146,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         if(antall == 0 || hode == null) return "[]"; //returnerer [] hvis listen er tom
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
+        StringJoiner s = new StringJoiner(", ", "[", "]");
         Node<T> p = hode; //Første node = hode
-        stringBuilder.append(p.verdi);
-
-        p=p.neste; //p peker på neste node (node0)
-
-        while ()
+        while(p != null){
+            s.add(String.valueOf(p.verdi)); //legger til verdier for nåværende node inn i s.
+            p=p.neste;
+        }
+        return s.toString();
     }
 
     public String omvendtString()
