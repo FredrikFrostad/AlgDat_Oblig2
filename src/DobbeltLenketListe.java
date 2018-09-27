@@ -49,7 +49,27 @@ public class DobbeltLenketListe<T> implements Liste<T>
     // konstruktør
     public DobbeltLenketListe(T[] a)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Objects.requireNonNull(a, "Tabellen a er null!");
+
+        int i = 0;
+        // i blir like stor som lengden-1, eller lik som antall elementer som ikke er null
+        for (; i < a.length && a[i] == null; i++);
+
+        if(i < a.length){ //grensesjekk
+            hode = new Node<>(a[i],null, null); //Lager hode uten forrige og neste
+            Node<T> p = hode;
+            antall = 1; //En node er laget, og hode refererer til denne ved opprettelsen av listen.
+
+            for (i++; i< a.length; i++) { //
+                if(a[i] != null){
+                    p.neste = new Node<>(a[i], null , null); //lager ny node for neste.
+                    p.neste.forrige = p; //neste sin forrige er nåværende node
+                    p = p.neste; //Flytter peker til ny node.
+                    antall++; //Oppdaterer antall noder
+                }
+            }
+            hale = p; //Halen flyttes etter den noden som sist er opprettet/laget.
+        }
     }
 
     // subliste
