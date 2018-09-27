@@ -17,7 +17,7 @@ public class Main_Andreas {
         Liste<String> liste2 = new DobbeltLenketListe<>(t);
         System.out.println(liste2.antall() + " " + liste2.tom());
 */
-
+/*
         //Oppg2a
         String[] s1 = {}, s2 = {"A"}, s3 = {null,"A",null,"B",null};
         DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
@@ -27,6 +27,21 @@ public class Main_Andreas {
                 + " " + l3.toString() + " " + l1.omvendtString() + " "
                 + l2.omvendtString() + " " + l3.omvendtString());
         // Utskrift: [] [A] [A, B] [] [A] [B, A]
+
+*/
+        //Oppg2b
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        System.out.println(liste.toString() + " " + liste.omvendtString());
+        for (int i = 1; i <= 3; i++)
+        {
+            liste.leggInn(i);
+            System.out.println(liste.toString() + " " + liste.omvendtString());
+        }
+        // Utskrift:
+        // [] []
+        // [1] [1]
+        // [1, 2] [2, 1]
+        // [1, 2, 3] [3, 2, 1]
 
     }
 }
