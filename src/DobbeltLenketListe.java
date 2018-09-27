@@ -157,7 +157,15 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public String omvendtString()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if(antall == 0 || hode == null) return "[]"; //returnerer [] hvis listen er tom
+
+        StringJoiner s = new StringJoiner(", ", "[", "]");
+        Node<T> p = hale; //Første node = hode
+        while(p != null){
+            s.add(String.valueOf(p.verdi)); //legger til verdier for nåværende node inn i s.
+            p=p.forrige;
+        }
+        return s.toString();
     }
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
