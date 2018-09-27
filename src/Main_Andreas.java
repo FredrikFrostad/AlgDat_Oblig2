@@ -1,5 +1,5 @@
 public class Main_Andreas {
     public static void main(String[] args) {
-        System.out.println("Hei fra algdat oblig2");
+        Liste<String> liste = new DobbeltLenketListe<>();
     }
 }

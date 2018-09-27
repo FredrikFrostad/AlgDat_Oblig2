@@ -61,13 +61,14 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public int antall()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        return this.antall;
     }
 
     @Override
     public boolean tom()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        return antall == 0 ? true : false;
+
     }
 
     @Override
