@@ -6,5 +6,8 @@ public class FredriksTesteklasse {
         System.out.println(liste.antall() + " " + liste.tom());
         // Utskrift: 3 false
 
+        liste.leggInn("Kjell");
+        System.out.println(liste.toString());
+        System.out.println(((DobbeltLenketListe<String>) liste).omvendtString());
     }
 }

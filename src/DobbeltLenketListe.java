@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+
 public class DobbeltLenketListe<T> implements Liste<T>
 {
     private static final class Node<T>   // en indre nodeklasse
@@ -46,7 +47,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
         endringer = 0;
     }
 
-    // konstruktør
+    @SuppressWarnings("uncheked")
     public DobbeltLenketListe(T[] a) {
 
         this();
@@ -94,7 +95,19 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean leggInn(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //TODO: sjekk om denne faktisk kaster nullpointerexception
+        Objects.requireNonNull(verdi, "nullverdi er ikke tillatt!");
+
+        if (antall == 0) {
+            Node<T> node = hode = hale = new Node<>(verdi);
+            antall++;
+            endringer++;
+        }else {
+            hale = hale.neste = new Node<>(verdi,hale,null);
+            antall++;
+            endringer++;
+        }
+        return true;
     }
 
     @Override
@@ -148,12 +161,38 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public String toString()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if (antall == 0) return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(hode.verdi);
+
+        Node<T> node = hode.neste;
+
+        while (node != null) {
+            sb.append(", ").append(node.verdi);
+            node = node.neste;
+        }
+
+        sb.append("]");
+        return sb.toString();
     }
 
     public String omvendtString()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if (antall == 0) return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(hale.verdi);
+
+        Node<T> node = hale.forrige;
+
+        while (node != null) {
+            sb.append(", ").append(node.verdi);
+            node = node.forrige;
+        }
+
+        sb.append("]");
+        return sb.toString();
     }
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
