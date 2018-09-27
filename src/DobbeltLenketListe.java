@@ -56,19 +56,21 @@ public class DobbeltLenketListe<T> implements Liste<T>
                     ("parameter kan ikke være null!");
         }
         int i= 0;
-        while (a[i] == null) i++;
+        while (i < a.length && a[i] == null) i++;
 
-        Node<T> node = hode = hale = new Node<>(a[i++],null,null);
-        antall++;
+        if (i < a.length) {
+            Node<T> node = hode = hale = new Node<>(a[i], null, null);
+            antall++;
 
-        for (;i < a.length;i++) {
+            for (i++; i < a.length; i++) {
 
-            if (a[i] != null) {
-                node = node.neste = new Node<>(a[i],node,null);
-                antall++;
+                if (a[i] != null) {
+                    node = node.neste = new Node<>(a[i], node, null);
+                    antall++;
+                }
             }
+            hale = node;
         }
-        hale = node;
     }
 
     // subliste
