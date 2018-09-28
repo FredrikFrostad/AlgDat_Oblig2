@@ -5,10 +5,9 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 
-public class DobbeltLenketListe<T> implements Liste<T>
-{
-    private static final class Node<T>   // en indre nodeklasse
-    {
+public class DobbeltLenketListe<T> implements Liste<T> {
+
+    private static final class Node<T> {   // en indre nodeklasse
         // instansvariabler
         private T verdi;
         private Node<T> forrige, neste;
@@ -36,7 +35,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
     // hjelpemetode
     private Node<T> finnNode(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks, false);
+
+        return null;
     }
 
     // konstruktør
@@ -95,7 +96,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean leggInn(T verdi)
     {
-        //TODO: sjekk om denne faktisk kaster nullpointerexception
         Objects.requireNonNull(verdi, "nullverdi er ikke tillatt!");
 
         if (antall == 0) {
