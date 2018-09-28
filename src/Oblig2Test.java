@@ -22,7 +22,7 @@ public class Oblig2Test {
 
         antallFeil += oppgave1();
         antallFeil += oppgave2();
-        //antallFeil += oppgave3();
+        antallFeil += oppgave3();
         //antallFeil += oppgave4();
         //antallFeil += oppgave5();
         //antallFeil += oppgave6();
@@ -459,6 +459,8 @@ public class Oblig2Test {
         }
 
         if (!cliste.subliste(9, 10).toString().equals("[J]")) {
+            //TODO: fjern denne linjen!!!
+            System.out.println(cliste.subliste(9, 10).toString());
             antallFeil++;
             System.out.println
                     ("Oppgave 3w: Sublisten skal inneholde kun siste verdi i listen!");

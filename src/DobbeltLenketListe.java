@@ -1,8 +1,4 @@
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -37,7 +33,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     {
         indeksKontroll(indeks, false);
 
-        return null;
+        Node<T> node = null;
+
+        if (indeks < antall/2) {
+            node = hode;
+            for (int i = 0; i < indeks; i++) {
+                node = node.neste;
+            }
+        }else {
+            node = hale;
+            for (int i = antall-1; i > indeks; i--) {
+                node = node.forrige;
+            }
+        }
+        return node;
     }
 
     // konstruktør
@@ -75,11 +84,44 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
-    // subliste
+    // |liste
     public Liste<T> subliste(int fra, int til)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        fratilKontroll(antall, fra, til);
+
+        int i = fra;
+
+        DobbeltLenketListe sub = new DobbeltLenketListe();
+        if (til - fra == 0) return sub;
+        Node<T> node = sub.hode = sub.hale = new Node<>(finnNode(i++).verdi, null, null);
+        sub.antall++;
+
+        for (; i < til; i++) {
+            node = node.neste = new Node<>(finnNode(i).verdi, node, null);
+            sub.antall++;
+        }
+
+        sub.hale = node;
+
+        return sub;
     }
+
+
+    public void fratilKontroll(int antall, int fra, int til) {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + antall + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
+
 
     @Override
     public int antall()
@@ -125,7 +167,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T hent(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks, false);
+        return finnNode(indeks).verdi;
     }
 
     @Override
@@ -137,7 +180,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T oppdater(int indeks, T nyverdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Objects.requireNonNull(nyverdi, "ikke tillatt med nullverdier!");
+        indeksKontroll(indeks, false);
+        T gmlVerdi = finnNode(indeks).verdi;
+        finnNode(indeks).verdi = nyverdi;
+        return gmlVerdi;
     }
 
     @Override
@@ -211,42 +258,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException("Ikke laget ennå!");
     }
 
-    private class DobbeltLenketListeIterator implements Iterator<T>
-    {
+    private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
         private int iteratorendringer;
 
-        private DobbeltLenketListeIterator()
-        {
+        private DobbeltLenketListeIterator() {
             denne = hode;     // denne starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
-        private DobbeltLenketListeIterator(int indeks)
-        {
+        private DobbeltLenketListeIterator(int indeks) {
             throw new UnsupportedOperationException("Ikke laget ennå!");
         }
 
         @Override
-        public boolean hasNext()
-        {
+        public boolean hasNext() {
             return denne != null;  // denne koden skal ikke endres!
         }
 
         @Override
-        public T next()
-        {
+        public T next() {
             throw new UnsupportedOperationException("Ikke laget ennå!");
         }
 
         @Override
-        public void remove()
-        {
+        public void remove() {
             throw new UnsupportedOperationException("Ikke laget ennå!");
         }
-
-    } // DobbeltLenketListeIterator
-
-} // DobbeltLenketListe  bbeltLenketListe
+    }
+} // DobbeltLenketListe
