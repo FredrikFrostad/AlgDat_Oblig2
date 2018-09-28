@@ -459,8 +459,6 @@ public class Oblig2Test {
         }
 
         if (!cliste.subliste(9, 10).toString().equals("[J]")) {
-            //TODO: fjern denne linjen!!!
-            System.out.println(cliste.subliste(9, 10).toString());
             antallFeil++;
             System.out.println
                     ("Oppgave 3w: Sublisten skal inneholde kun siste verdi i listen!");
