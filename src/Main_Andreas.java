@@ -88,6 +88,8 @@ public class Main_Andreas {
         charListe.leggInn(0, 'B');  // ny verdi i tom liste [B, C]
         charListe.leggInn(0, 'A');  // ny verdi i tom liste [B, C]
 
+
+
         //charListe.leggInn(0, 'A');  // ny verdi i tom liste [A, B, C]
 
 //        charListe.leggInn(0, 'C');  // ny verdi i tom liste [C]
