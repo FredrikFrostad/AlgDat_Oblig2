@@ -83,26 +83,19 @@ public class DobbeltLenketListe<T> implements Liste<T>
     // subliste
     public Liste<T> subliste(int fra, int til)
     {
-        fratilKontroll(this.antall,fra,til);
-        //T[] b = null;
-        DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>();
+        fratilKontroll(this.antall,fra,til); //Fra til kontroll
+        DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>(); //Tom liste
 
         //et tomt intervall er lovlig, men skal returnere en tom liste
         if(til-fra == 0) return subListe;
 
-        for (int i = 0; i < antall ; i++) { //løper igjennom alle noder for denne listen
-            if(i>=fra && i<til) {
+        for (int i = 0; i < antall ; i++) { //løper igjennom alle noder for "denne" listen
+            if(i>=fra && i<til) { //Gitt intervall
+                //Plukker noder i "denne" listen fra gitt intervall, og legger disse over i ny subListe.
                 subListe.leggInn(finnNode(i).verdi);
             }
         }
-
         return subListe;
-
-
-
-
-
-
     }
 
     @Override
