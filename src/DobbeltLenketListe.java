@@ -133,19 +133,41 @@ public class DobbeltLenketListe<T> implements Liste<T>
         Node<T> nyNode = new Node<T>(verdi,null,null);
 
         if(indeks == 0){ //Ny node skal legges inn der hode er nå. Hode må endres/oppdateres.
+
             if(antall == 0) {
-                hode = new Node<T>(verdi,null,null);
+                //hode = new Node<T>(hode.verdi,null,null);
+                hode = new Node<>(verdi,null, hode);
                 hale = hode;
             }else{
-                nyNode.neste = hode.neste; //Oppdaterer nyNode sin neste med nåværende hode sin neste.
-                hode = new Node<T>(hode.verdi,null,nyNode); //Flytter hode fremover, og neste node er nyNode
-                nyNode.forrige = hode; //Setter nyNode sin forrige til å være det nye hode.
+
+                nyNode.verdi = hode.verdi;
+                hode.verdi = verdi;
+
+                nyNode.forrige = hode;
+                nyNode.neste = hode.neste;
+
+//                hode = new Node<T>(verdi,null,null);
+                //**Setter forrige og neste for nyNode
+
+                //hode.verdi = verdi;
+
+
+
+                //Oppdaterer hode sin neste til å være nyNode
+                hode.neste = nyNode;
+
+                //hode.neste = nyNode;
+                //nyNode.neste = hode.neste; //Oppdaterer nyNode sin neste med nåværende hode sin neste.
+                //hode = new Node<T>(hode.verdi,null,nyNode); //Flytter hode fremover, og neste node er nyNode
+                //nyNode.forrige = hode; //Setter nyNode sin forrige til å være det nye hode.
             }
+
         }else if (indeks == antall){ //Ny node skal legges inn der hale er nå. Hale må endres/oppdateres.
                 nyNode.forrige = hale.forrige; //Ny node sin forrige får nåværende hale sin forrige.
                 //Hale flyttes til nest og en ny hale som har nyNode som forrige
                 hale = hale.neste = new Node<T>(verdi,nyNode,null);
                 nyNode.neste = hale; //nyNode sin neste blir den nye halen.
+
         }else{ //Ny node skal legges inn mellom nåværende hode og hale. Må oppdater node før og etter.
 
             //**Legger inn neste og forrige for nyNode
@@ -154,9 +176,12 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
             //**Oppdaterer forrige node relativt til ny, og neste node relativt til den nye
             //Peker på nåværende node sin forrige sin neste node... dvs noden forran indeks skal ha nyNode som sin neste
-            finnNode(indeks).forrige.neste = nyNode; //
-            finnNode(indeks).forrige = nyNode; //Den forrige indeksen sin forrige.node blir den ny noden nyNode.
 
+
+            finnNode(indeks).forrige.neste = nyNode; //Funker ikke !!!... hvorfor det???
+            //finnNode(indeks-1).neste = nyNode;
+
+            finnNode(indeks).forrige = nyNode; //Den forrige indeksen sin forrige.node blir den ny noden nyNode.
         }
         antall++; //Har lagt til en ny node, og antall oppdateres
     }
