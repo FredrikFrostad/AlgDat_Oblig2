@@ -61,14 +61,34 @@ public class Main_Andreas {
 */
 
         //Oppgave 5
+/*
         Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
         System.out.println(liste.antall());
         System.out.println(liste.toString());
-
-        liste.leggInn(0,'Z');
+        liste.leggInn(1,'X');
+        //liste.leggInn(1, 3);  // ny verdi nest forrest
         System.out.println(liste.toString());
         System.out.println(liste.antall());
+*/
 
+        System.out.println();
+        DobbeltLenketListe<Character> charListe = new DobbeltLenketListe<>();
+        charListe.leggInn(0, 'C');  // ny verdi i tom liste
+        charListe.leggInn(0, 'A');  // ny verdi legges forrest
+        charListe.leggInn(2, 'D');  // ny verdi legges bakerst
+        charListe.leggInn(1, 'B');  // ny verdi nest forrest [
+        //[A, B, C, D]
+
+
+        System.out.println(charListe.toString());
+/*
+        System.out.println();
+        DobbeltLenketListe<Integer> intListe = new DobbeltLenketListe<>();
+        intListe.leggInn(0, 4);  // ny verdi i tom liste
+        intListe.leggInn(0, 2);  // ny verdi legges forrest
+        intListe.leggInn(2, 6);  // ny verdi legges bakerst
+        intListe.leggInn(1, 3);  // ny verdi nest forrest
+*/
     }
 }

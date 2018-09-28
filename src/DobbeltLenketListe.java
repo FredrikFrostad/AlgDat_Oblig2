@@ -138,13 +138,20 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 //hode = new Node<T>(hode.verdi,null,null);
                 hode = new Node<>(verdi,null, hode);
                 hale = hode;
+                antall++; //Har lagt til en ny node, og antall oppdateres
+                System.out.println("Halens verdi er nå: " + hale.verdi);
+                System.out.println("Hodets verdi er nå: " + hode.verdi);
             }else{
 
                 nyNode.verdi = hode.verdi;
-                hode.verdi = verdi;
+                nyNode.neste = hode.neste; //Gammel hode sin neste blir den nye noden sin neste
+                hode = new Node<>(verdi,null, nyNode); //Nytt hode
+                //nyNode.verdi = hode.verdi;
+                //hode.verdi = verdi;
 
-                nyNode.forrige = hode;
-                nyNode.neste = hode.neste;
+                nyNode.forrige = hode; //Nytt hode blir nyNode sin forrige
+                //hode.neste = nyNode; //Nytt hode sin neste blir nyNode
+                //nyNode.neste = hode.neste;
 
 //                hode = new Node<T>(verdi,null,null);
                 //**Setter forrige og neste for nyNode
@@ -154,8 +161,14 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
 
                 //Oppdaterer hode sin neste til å være nyNode
-                hode.neste = nyNode;
 
+
+
+                antall++; //Har lagt til en ny node, og antall oppdateres
+               // hale = finnNode(antall);
+                //hale = hale.neste = new Node<T>( finnNode(antall).verdi, finnNode(antall-1),null); //Oppdaterer halen
+                System.out.println("Halens verdi er nå: " + hale.verdi);
+                System.out.println("Hodets verdi er nå: " + hode.verdi);
                 //hode.neste = nyNode;
                 //nyNode.neste = hode.neste; //Oppdaterer nyNode sin neste med nåværende hode sin neste.
                 //hode = new Node<T>(hode.verdi,null,nyNode); //Flytter hode fremover, og neste node er nyNode
@@ -167,7 +180,10 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 //Hale flyttes til nest og en ny hale som har nyNode som forrige
                 hale = hale.neste = new Node<T>(verdi,nyNode,null);
                 nyNode.neste = hale; //nyNode sin neste blir den nye halen.
-
+                antall++; //Har lagt til en ny node, og antall oppdateres
+                //hale = finnNode(antall); //Oppdaterer halen
+                System.out.println("Halens verdi er nå: " + hale.verdi);
+                System.out.println("Hodets verdi er nå: " + hode.verdi);
         }else{ //Ny node skal legges inn mellom nåværende hode og hale. Må oppdater node før og etter.
 
             //**Legger inn neste og forrige for nyNode
@@ -178,12 +194,16 @@ public class DobbeltLenketListe<T> implements Liste<T>
             //Peker på nåværende node sin forrige sin neste node... dvs noden forran indeks skal ha nyNode som sin neste
 
 
-            finnNode(indeks).forrige.neste = nyNode; //Funker ikke !!!... hvorfor det???
-            //finnNode(indeks-1).neste = nyNode;
+            //finnNode(indeks).forrige.neste = nyNode; //Funker ikke !!!... hvorfor det???
+            finnNode(indeks-1).neste = nyNode;
 
             finnNode(indeks).forrige = nyNode; //Den forrige indeksen sin forrige.node blir den ny noden nyNode.
+            antall++; //Har lagt til en ny node, og antall oppdateres
+            //hale = finnNode(antall); //Oppdaterer halen
+            System.out.println("Halens verdi er nå: " + hale.verdi);
+            System.out.println("Hodets verdi er nå: " + hode.verdi);
         }
-        antall++; //Har lagt til en ny node, og antall oppdateres
+        //antall++; //Har lagt til en ny node, og antall oppdateres
     }
 
     @Override
