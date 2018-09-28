@@ -133,7 +133,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean inneholder(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+       return indeksTil(verdi) != -1 ? true : false; //Sjekker om det finnes en indeks som har verdien verdi.
     }
 
     @Override
@@ -141,19 +141,24 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         indeksKontroll(indeks,false);
         return finnNode(indeks).verdi;
-
     }
 
     @Override
     public int indeksTil(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if(verdi == null) return -1;
+
+        Node<T> p = hode;
+        for (int i = 0; i < antall; i++) {
+            if(p.verdi.equals(verdi)) return i; //har må equals brukes fordi det jobbes med objekter!
+            p = p.neste;
+        }
+        return -1;
     }
 
     @Override
     public T oppdater(int indeks, T nyverdi)
     {
-
         Objects.requireNonNull(nyverdi, "Null-verdier er ikke tillatt!");
         indeksKontroll(indeks,false);
         T forrigeVerdi = finnNode(indeks).verdi;
