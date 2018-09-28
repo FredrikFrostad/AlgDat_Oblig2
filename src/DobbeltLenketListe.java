@@ -138,18 +138,31 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 //hode = new Node<T>(hode.verdi,null,null);
                 hode = new Node<>(verdi,null, hode);
                 hale = hode;
+                //hale.forrige = hode;
                 antall++; //Har lagt til en ny node, og antall oppdateres
-                System.out.println("Halens verdi er nå: " + hale.verdi);
-                System.out.println("Hodets verdi er nå: " + hode.verdi);
+                //System.out.println("Halens verdi er nå: " + hale.verdi);
+                //System.out.println("Hodets verdi er nå: " + hode.verdi);
             }else{
 
-                nyNode.verdi = hode.verdi;
-                nyNode.neste = hode.neste; //Gammel hode sin neste blir den nye noden sin neste
-                hode = new Node<>(verdi,null, nyNode); //Nytt hode
+                //hale.neste = new Node<>(verdi, hale, null);
+                //hale = hale.neste;
+
+                hode.forrige = new Node<>(verdi,null,hode);
+                hode = hode.forrige;
+
+                //nyNode.verdi = hode.verdi;
+                //hode = new Node<>(verdi,null, nyNode); //Nytt hode. Nytt element først i lista
                 //nyNode.verdi = hode.verdi;
                 //hode.verdi = verdi;
+                //nyNode.forrige = hode; //Nytt hode blir nyNode sin forrige
 
-                nyNode.forrige = hode; //Nytt hode blir nyNode sin forrige
+                //if(antall ==1) {
+                //    nyNode.neste = hale;
+                //    hale.forrige = nyNode;
+                //}
+                //else nyNode.neste = hode.neste; //Gammel hode sin neste blir den nye noden sin neste
+
+
                 //hode.neste = nyNode; //Nytt hode sin neste blir nyNode
                 //nyNode.neste = hode.neste;
 
@@ -167,8 +180,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 antall++; //Har lagt til en ny node, og antall oppdateres
                // hale = finnNode(antall);
                 //hale = hale.neste = new Node<T>( finnNode(antall).verdi, finnNode(antall-1),null); //Oppdaterer halen
-                System.out.println("Halens verdi er nå: " + hale.verdi);
-                System.out.println("Hodets verdi er nå: " + hode.verdi);
+                //System.out.println("Halens verdi er nå: " + hale.verdi);
+                //System.out.println("Hodets verdi er nå: " + hode.verdi);
                 //hode.neste = nyNode;
                 //nyNode.neste = hode.neste; //Oppdaterer nyNode sin neste med nåværende hode sin neste.
                 //hode = new Node<T>(hode.verdi,null,nyNode); //Flytter hode fremover, og neste node er nyNode
@@ -176,34 +189,81 @@ public class DobbeltLenketListe<T> implements Liste<T>
             }
 
         }else if (indeks == antall){ //Ny node skal legges inn der hale er nå. Hale må endres/oppdateres.
+
+
+
+                hale = hale.neste = new Node<>(verdi, hale, null);
+
+
+                /*
                 nyNode.forrige = hale.forrige; //Ny node sin forrige får nåværende hale sin forrige.
                 //Hale flyttes til nest og en ny hale som har nyNode som forrige
                 hale = hale.neste = new Node<T>(verdi,nyNode,null);
                 nyNode.neste = hale; //nyNode sin neste blir den nye halen.
+                */
+
+
+
                 antall++; //Har lagt til en ny node, og antall oppdateres
                 //hale = finnNode(antall); //Oppdaterer halen
-                System.out.println("Halens verdi er nå: " + hale.verdi);
-                System.out.println("Hodets verdi er nå: " + hode.verdi);
+                //System.out.println("Halens verdi er nå: " + hale.verdi);
+                //System.out.println("Hodets verdi er nå: " + hode.verdi);
         }else{ //Ny node skal legges inn mellom nåværende hode og hale. Må oppdater node før og etter.
 
+            //Her kan jeg ikke "hoppe" til hode, eller halen, så må iterere meg frem til indeks
+            Node<T> p = hode;
+            for (int i = 1; i < indeks+1 ; i++) { //Starter på node0 og går til indeks
+
+                if(i<indeks)
+                    p = p.neste; //p er nå plassen før der ny node skal inn.
+
+                if(i==indeks){
+                   nyNode.forrige = p;
+                   p = p.neste;
+                   nyNode.neste = p.neste;
+                }
+
+
+
+
+            }
+
+            p.neste = nyNode;
+
             //**Legger inn neste og forrige for nyNode
-            nyNode.forrige = finnNode(indeks).forrige; //Nåværende indeks sin forrige skal bli den nye nodes forrige
-            nyNode.neste = finnNode(indeks); //nyNode sin neste blir den som "var" på indeks.
+            //nyNode.forrige = finnNode(indeks).forrige; //Nåværende indeks sin forrige skal bli den nye nodes forrige
+            //nyNode.neste = finnNode(indeks); //nyNode sin neste blir den som "var" på indeks.
 
             //**Oppdaterer forrige node relativt til ny, og neste node relativt til den nye
             //Peker på nåværende node sin forrige sin neste node... dvs noden forran indeks skal ha nyNode som sin neste
 
 
             //finnNode(indeks).forrige.neste = nyNode; //Funker ikke !!!... hvorfor det???
-            finnNode(indeks-1).neste = nyNode;
+            //finnNode(indeks-1).neste = nyNode;
 
-            finnNode(indeks).forrige = nyNode; //Den forrige indeksen sin forrige.node blir den ny noden nyNode.
+            //finnNode(indeks).forrige = nyNode; //Den forrige indeksen sin forrige.node blir den ny noden nyNode.
             antall++; //Har lagt til en ny node, og antall oppdateres
             //hale = finnNode(antall); //Oppdaterer halen
-            System.out.println("Halens verdi er nå: " + hale.verdi);
-            System.out.println("Hodets verdi er nå: " + hode.verdi);
+            //System.out.println("Halens verdi er nå: " + hale.verdi);
+            //System.out.println("Hodets verdi er nå: " + hode.verdi);
         }
         //antall++; //Har lagt til en ny node, og antall oppdateres
+
+        System.out.println();
+        //*********Test av oppdatering av hode når det legges til ny node først********
+        System.out.println("Hodets verdi er " + hode.verdi);
+
+        if(antall>1)
+        System.out.println("Hodets neste verdi er " + hode.neste.verdi);
+
+        System.out.println();
+
+        //*********Test av oppdatering av hale når det legges til ny node bakerst********
+        System.out.println("Halens verdi er " + hale.verdi);
+        if(antall > 1) System.out.println("Halens forrige verdi er " + hale.forrige.verdi);
+        else System.out.println("Halens forrige verdi er null");
+
+        endringer++;
     }
 
     @Override

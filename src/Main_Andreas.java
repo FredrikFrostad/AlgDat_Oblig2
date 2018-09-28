@@ -74,10 +74,26 @@ public class Main_Andreas {
 
         System.out.println();
         DobbeltLenketListe<Character> charListe = new DobbeltLenketListe<>();
-        charListe.leggInn(0, 'C');  // ny verdi i tom liste
-        charListe.leggInn(0, 'A');  // ny verdi legges forrest
-        charListe.leggInn(2, 'D');  // ny verdi legges bakerst
-        charListe.leggInn(1, 'B');  // ny verdi nest forrest [
+
+        //bakerst test
+        /*
+        charListe.leggInn(0, 'A');  // ny verdi i tom liste [C]
+        charListe.leggInn(1, 'B');  // ny verdi i tom liste [B, C]
+        charListe.leggInn(2, 'C');  // ny verdi i tom liste [B, C]
+        charListe.leggInn(3, 'D');  // ny verdi i tom liste [B, C]
+*/
+        //Legg inn først teest
+        charListe.leggInn(0, 'D');  // ny verdi i tom liste [C]
+        charListe.leggInn(0, 'C');  // ny verdi i tom liste [B, C]
+        charListe.leggInn(0, 'B');  // ny verdi i tom liste [B, C]
+        charListe.leggInn(0, 'A');  // ny verdi i tom liste [B, C]
+
+        //charListe.leggInn(0, 'A');  // ny verdi i tom liste [A, B, C]
+
+//        charListe.leggInn(0, 'C');  // ny verdi i tom liste [C]
+//        charListe.leggInn(0, 'A');  // ny verdi legges forrest [A, C]
+//        charListe.leggInn(2, 'D');  // ny verdi legges bakerst [A, C, D]
+//        charListe.leggInn(1, 'B');  // ny verdi nest forrest [A, B, C, D]
         //[A, B, C, D]
 
 
