@@ -83,7 +83,26 @@ public class DobbeltLenketListe<T> implements Liste<T>
     // subliste
     public Liste<T> subliste(int fra, int til)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        fratilKontroll(this.antall,fra,til);
+        //T[] b = null;
+        DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>();
+
+        //et tomt intervall er lovlig, men skal returnere en tom liste
+        if(til-fra == 0) return subListe;
+
+        for (int i = 0; i < antall ; i++) { //løper igjennom alle noder for denne listen
+            if(i>=fra && i<til) {
+                subListe.leggInn(finnNode(i).verdi);
+            }
+        }
+
+        return subListe;
+
+
+
+
+
+
     }
 
     @Override
@@ -141,6 +160,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public T oppdater(int indeks, T nyverdi)
     {
+
+        Objects.requireNonNull(nyverdi, "Null-verdier er ikke tillatt!");
         indeksKontroll(indeks,false);
         T forrigeVerdi = finnNode(indeks).verdi;
         if(nyverdi != null) finnNode(indeks).verdi = nyverdi;
@@ -254,5 +275,20 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     } // DobbeltLenketListeIterator
 
+    //Lagg inn fra oppg3
+    private static void fratilKontroll(int antall, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + antall + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
 
 } // DobbeltLenketListe  bbeltLenketListe
