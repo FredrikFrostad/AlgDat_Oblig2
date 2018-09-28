@@ -132,9 +132,11 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         if(indeks == 0){ //Ny node skal legges inn der hode er nå. Hode må endres/oppdateres.
             Node<T> nyNode = new Node<T>(verdi,null,hode);
-            if (hode != null){
+
+            if (hode != null){//fikser indeks sjekk for: 0 <= indeks <= antall som er det tillatte!
                 hode.forrige = nyNode;
             }
+
             hode = nyNode;
             if(antall == 0) {
                 hale = hode;
@@ -142,6 +144,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         }else if (indeks == antall){ //Ny node skal legges inn der hale er nå. Hale må endres/oppdateres.
                 hale = hale.neste = new Node<>(verdi, hale, null);
+
         }else{ //Ny node skal legges inn mellom nåværende hode og hale. Må oppdater node før og etter.
             Node<T> nyNode = new Node<T>(verdi,null,null);
             Node<T> p = hode;                  // p flyttes indeks - 1 ganger
