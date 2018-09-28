@@ -31,7 +31,19 @@ public class DobbeltLenketListe<T> implements Liste<T>
     // hjelpemetode
     private Node<T> finnNode(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Node<T> p;
+        if(indeks < antall/2){
+            p = hode;
+            for (int i = 0; i < indeks; i++) {
+                p = p.neste;
+            }
+        }else{
+            p=hale;
+            for (int i = 0; i < antall-indeks-1 ; i++) {
+                p = p.forrige;
+            }
+        }
+        return p;
     }
 
     // konstruktør
@@ -84,7 +96,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
     public boolean tom()
     {
         return antall == 0 ? true : false;
-
     }
 
     @Override
@@ -116,7 +127,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public T hent(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        return finnNode(indeks).verdi;
+
     }
 
     @Override
@@ -128,7 +141,12 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public T oppdater(int indeks, T nyverdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        T forrigeVerdi = finnNode(indeks).verdi;
+        if(nyverdi != null) finnNode(indeks).verdi = nyverdi;
+        endringer ++;
+        return forrigeVerdi;
+
     }
 
     @Override
@@ -154,12 +172,18 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         if(antall == 0 || hode == null) return "[]"; //returnerer [] hvis listen er tom
 
-        StringJoiner s = new StringJoiner(", ", "[", "]");
+        StringBuilder s = new StringBuilder();
         Node<T> p = hode; //Første node = hode
+        s.append("[");
+        s.append(p.verdi);
+        p=p.neste;
+
         while(p != null){
-            s.add(String.valueOf(p.verdi)); //legger til verdier for nåværende node inn i s.
+            s.append(", ");
+            s.append(p.verdi); //legger til verdier for nåværende node inn i s.
             p=p.neste;
         }
+        s.append("]");
         return s.toString();
     }
 
@@ -229,5 +253,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
         }
 
     } // DobbeltLenketListeIterator
+
 
 } // DobbeltLenketListe  bbeltLenketListe
