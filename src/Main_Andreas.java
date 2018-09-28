@@ -54,9 +54,21 @@ public class Main_Andreas {
         System.out.println(liste.subliste(0,11)); // skal kaste unntak
 */
         //Oppgave 4
+      /*
         Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
         System.out.println(liste.indeksTil('J'));
+*/
+
+        //Oppgave 5
+        Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.antall());
+        System.out.println(liste.toString());
+
+        liste.leggInn(0,'Z');
+        System.out.println(liste.toString());
+        System.out.println(liste.antall());
 
     }
 }
