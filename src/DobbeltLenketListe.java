@@ -171,7 +171,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else if (indeks == antall && antall > 0) {     //legger inn bakerst
             hale = hale.neste = new Node<>(verdi,hale,null);
             antall++;
-            endringer++;
+             endringer++;
         }else {         //legger inn i mellom to andre verdier
             Node<T> node = hode;
             for (int i = 0; i < indeks - 1; i++ ) node = node.neste;
@@ -223,13 +223,80 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean fjern(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //Sjekker om listen er tom, returnerer i så fall false
+        if (antall == 0) return false;
+
+        Node<T> node = hode;
+        int i = 0;
+
+        while(node.neste != null) {
+
+            if (node.verdi.equals(verdi) && i == 0) { //Sletter første node
+                hode = hode.neste;
+                hode.forrige = null;
+                antall--;
+                endringer++;
+                return true;
+            }else if(node.verdi.equals(verdi)) {    //Sletter noder som ligger i mellom hode og hale
+                node.forrige.neste = node.neste;
+                node.neste.forrige = node.forrige;
+                node = null;
+                antall--;
+                endringer++;
+                return true;
+            }
+
+            node = node.neste;
+            i++;
+        }
+        if(node.verdi.equals(verdi) && i == antall - 1) {   //Sletter siste node
+        hale = hale.forrige;
+        hale.neste = null;
+        antall--;
+        endringer++;
+        return true;
+    }
+        return false;
     }
 
     @Override
     public T fjern(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks, false);
+
+        Node<T> node = hode;
+        T ret;
+
+        if (indeks == 0) {      //sletter første node
+            ret = node.verdi;
+            hode = hode.neste;
+            hode.forrige = null;
+            node = null;
+            antall--;
+            endringer++;
+            return ret;
+        } else if(indeks == antall-1) {     //sletter siste node
+            ret = node.verdi;
+            hale = hale.forrige;
+            hale.neste = null;
+            antall--;
+            endringer++;
+            return ret;
+        }else {     //sletter node mellom hode og hale
+            int i = 0;
+
+            while(i < indeks) {
+                node = node.neste;
+                i++;
+            }
+            ret = node.verdi;
+            node.forrige.neste = node.neste;
+            node.neste.forrige = node.forrige;
+            node = null;
+            antall--;
+            endringer++;
+        }
+        return ret;
     }
 
     @Override

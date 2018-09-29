@@ -25,7 +25,7 @@ public class Oblig2Test {
         antallFeil += oppgave3();
         antallFeil += oppgave4();
         antallFeil += oppgave5();
-        //antallFeil += oppgave6();
+        antallFeil += oppgave6();
         //antallFeil += oppgave7();
         //antallFeil += oppgave8();
         //antallFeil += oppgave9();
@@ -803,9 +803,10 @@ public class Oblig2Test {
             antallFeil++;
             System.out.println("Oppgave 6n: Feil i metoden fjern(T)!");
         }
-
+        //TODO: fjern print
         liste.fjern("H");
         liste.fjern("C");
+        System.out.println(liste);
         liste.fjern("E");
 
         if (!liste.toString().equals("[]")) {
