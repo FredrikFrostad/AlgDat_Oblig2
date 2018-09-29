@@ -155,13 +155,37 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void leggInn(int indeks, T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Objects.requireNonNull(verdi, "nullverdier er ikke tillatt!");
+        indeksKontroll(indeks, true);
+        if (antall == 0) {      //legger inn i tom liste
+            Node<T> node = hode = hale = new Node<>(verdi);
+            antall++;
+            endringer++;
+        }else if (indeks == 0 && antall > 0) {      //legger inn først i listen
+            Node node = hode;
+            node.forrige = new Node<>(verdi, null, node);
+            hode = node.forrige;
+            antall++;
+            endringer++;
+        }
+        else if (indeks == antall && antall > 0) {     //legger inn bakerst
+            hale = hale.neste = new Node<>(verdi,hale,null);
+            antall++;
+            endringer++;
+        }else {         //legger inn i mellom to andre verdier
+            Node<T> node = hode;
+            for (int i = 0; i < indeks - 1; i++ ) node = node.neste;
+            node.neste = new Node<>(verdi, node, node.neste);
+            node.neste.neste.forrige = node.neste;
+            antall++;
+            endringer++;
+        }
     }
 
     @Override
     public boolean inneholder(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        return indeksTil(verdi) != -1;
     }
 
     @Override
@@ -174,7 +198,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int indeksTil(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+
+        if (verdi==null) return -1;
+
+        Node<T> node = hode;
+
+        for (int i = 0; i < antall; i++) {
+            if (verdi.equals(node.verdi)) return i;
+            node = node.neste;
+        }
+        return -1;
     }
 
     @Override
