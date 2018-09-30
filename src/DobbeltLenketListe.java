@@ -217,6 +217,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks, false);
         T gmlVerdi = finnNode(indeks).verdi;
         finnNode(indeks).verdi = nyverdi;
+        endringer++;
         return gmlVerdi;
     }
 
@@ -329,10 +330,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     /**
      * Metode som nulstiller listen.
-     * Nu går alt så meget bedre her. Dette ser jo nesten ut som
-     * om det kunne vært skrevet av et oppegående menneske.
-     * Selvtilliten er på vei tilbake etter den leie knekken
-     * i oppgave 6.
+     * Har gjort tidsmålinger som sammenligner denne metoden med
+     * en løkke som repetitivt kaller fjern(0) til listen er tom.
+     * Resultatet er at denne metoden er ca dobbelt så rask når
+     * listen blir veldig stor. (110ms vs 200ms ved antall = 10000000)
      */
     @Override
     public void nullstill()
@@ -396,12 +397,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public Iterator<T> iterator()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        DobbeltLenketListeIterator iter = new DobbeltLenketListeIterator();
+        iter.denne = hode;
+        iter.iteratorendringer = endringer;
+
+        return iter;
     }
 
     public Iterator<T> iterator(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -416,7 +421,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException("Ikke laget ennå!");
+            this();
+            denne = finnNode(indeks);
         }
 
         @Override
@@ -426,7 +432,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException("Ikke laget ennå!");
+
+            if(iteratorendringer != endringer) {
+                throw new ConcurrentModificationException
+                        ("listen er endret!");
+            }
+            if (!hasNext()) {
+                throw new NoSuchElementException
+                        ("det er ikke flere elementer i listen!");
+            }
+            fjernOK = true;
+            T out = denne.verdi;
+            denne = denne.neste;
+            return out;
         }
 
         @Override
