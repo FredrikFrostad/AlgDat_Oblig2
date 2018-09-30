@@ -803,10 +803,8 @@ public class Oblig2Test {
             antallFeil++;
             System.out.println("Oppgave 6n: Feil i metoden fjern(T)!");
         }
-        //TODO: fjern print
         liste.fjern("H");
         liste.fjern("C");
-        System.out.println(liste);
         liste.fjern("E");
 
         if (!liste.toString().equals("[]")) {

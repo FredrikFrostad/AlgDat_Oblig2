@@ -249,7 +249,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             node = node.neste;
             i++;
         }
-        if(node.verdi.equals(verdi) && i == antall - 1) {   //Sletter siste node
+        if(hode.verdi.equals(verdi) && antall == 1) {
+            hode = hale =null;
+            antall--;
+            endringer++;
+            return true;
+        }
+        else if(node.verdi.equals(verdi) && i == antall - 1) {   //Sletter siste node
         hale = hale.forrige;
         hale.neste = null;
         antall--;
@@ -267,7 +273,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> node = hode;
         T ret;
 
-        if (indeks == 0) {      //sletter første node
+        if (antall == 1) {      //sletter første og eneste node
+            ret = node.verdi;
+            hode = hode.neste;
+            node = null;
+            antall--;
+            endringer++;
+            return ret;
+        }
+        if (indeks == 0 && antall > 1) {      //sletter første node når antall > 1
             ret = node.verdi;
             hode = hode.neste;
             hode.forrige = null;
