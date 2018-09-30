@@ -276,7 +276,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * Fjerner nodne på en gitt indeks. Denne metoden er om mulig enda mere vaklevoren enn metoden over.
      * Her har den unge uredde IT-student valgt å løse problemet ved å ukritisk kaste if-setinger på
      * det til det ble lei og gikk hjem.
-     * @param indeks endeksen til noden som skal fjernes
+     * @param indeks indeksen til noden som skal fjernes
      * @return verdien til den fjernede noden
      */
     @Override
@@ -327,11 +327,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return ret;
     }
 
+    /**
+     * Metode som nulstiller listen.
+     * Nu går alt så meget bedre her. Dette ser jo nesten ut som
+     * om det kunne vært skrevet av et oppegående menneske.
+     * Selvtilliten er på vei tilbake etter den leie knekken
+     * i oppgave 6.
+     */
     @Override
     public void nullstill()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Node<T> node = hode, temp = null;
+        while (node != null) {
+            temp = node.neste;
+            node.neste = null;
+            node.forrige = null;
+            node.verdi = null;
+            node = temp;
+            antall--;
+            endringer++;
+        }
+        hode = hale = null;
     }
+
 
     @Override
     public String toString()
