@@ -72,8 +72,8 @@ public class Main_Andreas {
         System.out.println(liste.antall());
 */
 
-        System.out.println();
-        DobbeltLenketListe<Character> charListe = new DobbeltLenketListe<>();
+//        System.out.println();
+  //      DobbeltLenketListe<Character> charListe = new DobbeltLenketListe<>();
 
         //bakerst test
         /*
@@ -83,10 +83,10 @@ public class Main_Andreas {
         charListe.leggInn(3, 'D');  // ny verdi i tom liste [B, C]
 */
         //Legg inn først teest
-        charListe.leggInn(0, 'D');  // ny verdi i tom liste [C]
-        charListe.leggInn(0, 'C');  // ny verdi i tom liste [B, C]
-        charListe.leggInn(0, 'B');  // ny verdi i tom liste [B, C]
-        charListe.leggInn(0, 'A');  // ny verdi i tom liste [B, C]
+ //       charListe.leggInn(0, 'D');  // ny verdi i tom liste [C]
+   //     charListe.leggInn(0, 'C');  // ny verdi i tom liste [B, C]
+   //     charListe.leggInn(0, 'B');  // ny verdi i tom liste [B, C]
+   //     charListe.leggInn(0, 'A');  // ny verdi i tom liste [B, C]
 
 
 
@@ -99,7 +99,7 @@ public class Main_Andreas {
         //[A, B, C, D]
 
 
-        System.out.println(charListe.toString());
+      //  System.out.println(charListe.toString());
 /*
         System.out.println();
         DobbeltLenketListe<Integer> intListe = new DobbeltLenketListe<>();
@@ -108,5 +108,19 @@ public class Main_Andreas {
         intListe.leggInn(2, 6);  // ny verdi legges bakerst
         intListe.leggInn(1, 3);  // ny verdi nest forrest
 */
+
+/*
+        Character[] c = {'A','B','C','D'};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.toString());
+        System.out.println("Fjernet verdi = " + liste.fjern(2));
+        System.out.println(liste.toString());
+*/
+
+        Character[] c = {'A','B','C','D'};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.toString());
+        System.out.println("Fjernet verdi = " + liste.fjern(c[2]));
+        System.out.println(liste.toString());
     }
 }

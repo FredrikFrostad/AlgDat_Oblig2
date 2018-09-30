@@ -200,13 +200,84 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean fjern(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if(verdi == null) return false; //Må brukr verdi == null her. Kan ikke bruke verdi.equals(null) om verdi er null
+        Node<T> p = hode;
+        int i = 1;
+
+        if(hode.verdi.equals(verdi)) {
+            fjernHjelp(hode);
+            return true;
+        }
+
+        for (; i < antall ; i++) {
+            p = p.neste;
+            if(p.verdi.equals(verdi)) {
+                fjernHjelp(p);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public T fjern(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        if(indeks == 0){
+            antall--;
+            T temp = hode.verdi;
+            hode = hode.neste; //Neste etter hode blir node 1. ikke node 0.
+            //Hvis det kun er en node igjen etter at hode sin nest har blitt hode -> neste sin forrige skal ikke oppdateres
+            if(antall > 1) hode.neste.forrige = hode;
+            if(antall>0) hode.forrige = null;
+            endringer++;
+            return temp;
+        }
+        else if(indeks == antall-1){ //siste indeks
+            antall--;
+            T temp = hale.verdi;
+            hale = hale.forrige; //Neste etter hode blir node 1. ikke node 0.
+            if(antall>1) hale.forrige.neste = hale;
+            hale.neste = null;
+            endringer++;
+            return temp;
+        }
+        else{
+            Node<T> p = hode;
+            for (int i = 0; i < indeks ; i++) p = p.neste; //Går frem til p
+
+            T temp = p.verdi;
+            p.neste.forrige = p.forrige; //Oppdaterer neste sin forrige peker
+            p.forrige.neste = p.neste;//Oppdaterer forrige sin neste peker.
+            antall--;
+            endringer++;
+            return temp;
+        }
+    }
+
+    private void fjernHjelp(Node<T> denne){
+
+        if(denne.forrige == null) { //Betraktes som at du står på hode. indeks == 0
+            antall--;
+            hode = hode.neste; //Neste etter hode blir node 1. ikke node 0.
+            //Hvis det kun er en node igjen etter at hode sin nest har blitt hode -> neste sin forrige skal ikke oppdateres
+            if(antall > 1) hode.neste.forrige = hode;
+            if(antall>0) hode.forrige = null;
+            endringer++;
+        }
+        else if(denne.neste==null){ //Står på halen. Indeks == antall-1
+            antall--;
+            hale = hale.forrige; //Neste etter hode blir node 1. ikke node 0.
+            if(antall>1) hale.forrige.neste = hale;
+            hale.neste = null;
+            endringer++;
+        }
+        else{ //
+            antall--;
+            denne.neste.forrige = denne.forrige; //Oppdaterer neste sin forrige peker
+            denne.forrige.neste = denne.neste;//Oppdaterer forrige sin neste peker.
+            endringer++;
+        }
     }
 
     @Override
