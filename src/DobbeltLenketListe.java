@@ -200,8 +200,36 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean fjern(T verdi)
     {
+       /*
         if(verdi == null) return false; //Må brukr verdi == null her. Kan ikke bruke verdi.equals(null) om verdi er null
+
+        Node<T> q = hode, p = null;
+
+        while(q != null){
+            if(q.verdi.equals(verdi)) break;
+            p = q;
+            q = q.neste;
+        }
+
+        if(q==null) return false;
+        else if (q==hode) hode = hode.neste;
+        else p.neste = q.neste;
+
+        if(q==hale) hale = p;
+
+        q.verdi = null;
+        q.neste = null;
+
+        antall--;
+
+        return true;
+*/
+
+
+        if(verdi == null) return false; //Må brukr verdi == null her. Kan ikke bruke verdi.equals(null) om verdi er null
+
         Node<T> p = hode;
+
         int i = 1;
 
         if(hode.verdi.equals(verdi)) {
