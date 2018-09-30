@@ -209,11 +209,18 @@ public class DobbeltLenketListe<T> implements Liste<T>
             return true;
         }
 
-        for (; i < antall ; i++) {
-            p = p.neste;
-            if(p.verdi.equals(verdi)) {
-                fjernHjelp(p);
-                return true;
+        else if(hale.verdi.equals(verdi)) {
+            fjernHjelp(hale);
+            return true;
+        }
+
+        else {
+            for (; i < antall; i++) {
+                p = p.neste;
+                if (p.verdi.equals(verdi)) {
+                    fjernHjelp(p);
+                    return true;
+                }
             }
         }
         return false;
@@ -243,8 +250,11 @@ public class DobbeltLenketListe<T> implements Liste<T>
             return temp;
         }
         else{
-            Node<T> p = hode;
-            for (int i = 0; i < indeks ; i++) p = p.neste; //Går frem til p
+            Node<T> p = finnNode(indeks);
+
+            //Node<T> p = hode;
+            //for (int i = 0; i < indeks ; i++) p = p.neste;
+
 
             T temp = p.verdi;
             p.neste.forrige = p.forrige; //Oppdaterer neste sin forrige peker

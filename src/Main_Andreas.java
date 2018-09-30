@@ -122,5 +122,29 @@ public class Main_Andreas {
         System.out.println(liste.toString());
         System.out.println("Fjernet verdi = " + liste.fjern(c[2]));
         System.out.println(liste.toString());
+        System.out.println(liste.omvendtString());
+
+
+        Liste<Integer> nyliste = new DobbeltLenketListe<>();
+        for (int i = 1; i <= 100_000; i++) nyliste.leggInn(i);
+        long tid1 = System.currentTimeMillis();
+        for (int i = 40000; i <= 50000; i++) nyliste.fjern(new Integer(i));
+        tid1 = System.currentTimeMillis() - tid1;
+        System.out.println("Tiden et tar å fjerne ved fjern(T verdi) = " + tid1);
+
+        nyliste = new DobbeltLenketListe<>();
+        for (int i = 1; i <= 100_000; i++) nyliste.leggInn(i);
+        long tid2 = System.currentTimeMillis();
+        for (int i = 40000; i <= 50000; i++) nyliste.fjern(i);
+        tid2 = System.currentTimeMillis() - tid2;
+        System.out.println("Tiden et tar å fjerne ved fjern(indeks) = " + tid2);
+
+        long maks = Math.max(tid1, tid2);
+        System.out.println("Maks av tid1, og tid2 = " + maks);
+        long min = Math.min(tid1, tid2);
+
+        System.out.println("min*1.5="+ min*1.5);
+        if (maks > 1.5 * min) System.out.println("Maks > 1.5*min... ikke lov");
+
     }
 }
