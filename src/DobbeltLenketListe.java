@@ -220,6 +220,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return gmlVerdi;
     }
 
+    /**
+     *  Fjerner første node fra venstre som er lik argumentvariablen. Koden i denne metoden ser ikke ut
+     *  i måneskinn, og er resultatet av en lang dags ferd mot natt. Men undertegnede velger å gi seg selv
+     *  et klapp på skulderen, jekke nok en duggfrisk en og fortsette ufortrødent videre inn i det ukjente.
+     * @param verdi er verdien vi ønsker å slette fra listen
+     * @return true dersom verdien finnes i listen, false ellers
+     */
     @Override
     public boolean fjern(T verdi)
     {
@@ -265,6 +272,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return false;
     }
 
+    /**
+     * Fjerner nodne på en gitt indeks. Denne metoden er om mulig enda mere vaklevoren enn metoden over.
+     * Her har den unge uredde IT-student valgt å løse problemet ved å ukritisk kaste if-setinger på
+     * det til det ble lei og gikk hjem.
+     * @param indeks endeksen til noden som skal fjernes
+     * @return verdien til den fjernede noden
+     */
     @Override
     public T fjern(int indeks)
     {
@@ -273,7 +287,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> node = hode;
         T ret;
 
-        if (antall == 1) {      //sletter første og eneste node
+        if (antall == 1) {      //sletter første node når antall = 1
             ret = node.verdi;
             hode = hode.neste;
             node = null;
