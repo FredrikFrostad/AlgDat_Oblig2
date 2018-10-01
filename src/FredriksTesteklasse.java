@@ -14,12 +14,20 @@ public class FredriksTesteklasse {
         //System.out.println(liste.toString());
         //System.out.println(((DobbeltLenketListe<String>) liste).omvendtString());
 //
-        Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
-        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        //Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
+        //DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        for (int i = 0; i <=13;i++) liste.leggInn((Integer)i);
         System.out.println(liste);
         System.out.println(liste.omvendtString());
 
-        //for (Iterator<Character> iter = liste.iterator())
+        for (Iterator<Integer> iter = liste.iterator(); iter.hasNext();) {
+            int verdi = iter.next();
+            if (verdi % 2 == 1) {
+
+            }
+        }
 
         System.out.println(liste);
         System.out.println(liste.omvendtString());
