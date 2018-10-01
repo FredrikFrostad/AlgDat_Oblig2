@@ -454,25 +454,31 @@ public class DobbeltLenketListe<T> implements Liste<T>
             }
 
             fjernOK = true;
-
-            if(antall == 1){
-                hode = null;
-                hale = null;
-            }
             if(denne == null){
-                hale = denne.forrige;
+                if(antall == 1){
+                    hode = null;
+                    hale = null;
+                } else{
+                    hale = hale.forrige; //Flytter halen en frem
+                    hale.neste = null;
+                }
             }
-            else if(denne.forrige == hode){
-                hode = denne.forrige;
+            else if(denne.forrige ==hode){
+                hode = denne;
+                hode.forrige = null;
+                denne.forrige = null; //Trengs denne egentlig når ?
+
             }
             else{
-                
+                denne.forrige.forrige.neste = denne;
+                denne.forrige = denne.forrige.forrige;
+
             }
 
-
-
-            denne.forrige = null;
-
+            //denne.forrige = null;
+            antall--;
+            endringer++;
+            iteratorendringer++;
         }
 
     } // DobbeltLenketListeIterator

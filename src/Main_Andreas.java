@@ -155,6 +155,7 @@ public class Main_Andreas {
 */
 
         //Oppgave8
+        /*
         String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
         Liste<String> liste = new DobbeltLenketListe<>(navn);
 
@@ -180,7 +181,7 @@ public class Main_Andreas {
         liste.forEach(s -> System.out.print(s + " "));
         System.out.println();
         for (String s : liste) System.out.print(s + " ");
-
+*/
         /*
         i = liste.iterator();
         liste.fjern(0); // bruker fjern(indeks) etter at iteratoren er opprettet
@@ -201,8 +202,26 @@ public class Main_Andreas {
         }*/
 
 
-// Utskrift:
-// Lars Anders Bodil Kari Per Berit
-// Lars Anders Bodil Kari Per Berit
+        // Utskrift:
+        // Lars Anders Bodil Kari Per Berit
+        // Lars Anders Bodil Kari Per Berit
+
+        //Oppgave9
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+
+        for (int k = 1; k <= 13; k++) {
+            liste.leggInn(k);
+        }
+        System.out.println(liste.toString());
+
+        for (Iterator<Integer> i = liste.iterator(); i.hasNext(); ) {
+            int verdi = i.next();
+            if (verdi % 2 == 1) {
+                i.remove(); // fjerner oddetallene
+            }
+        }
+        System.out.println(liste.toString());
+
+        System.out.println(liste.omvendtString());
     }
 }
