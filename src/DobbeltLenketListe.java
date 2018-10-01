@@ -480,12 +480,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public Iterator<T> iterator()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -503,7 +504,10 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         private DobbeltLenketListeIterator(int indeks)
         {
-            throw new UnsupportedOperationException("Ikke laget ennå!");
+            denne = hode;     // denne starter på den første i listen
+            fjernOK = false;  // blir sann når next() kalles
+            iteratorendringer = endringer;  // teller endringer
+            denne = finnNode(indeks);
         }
 
         @Override
@@ -515,11 +519,19 @@ public class DobbeltLenketListe<T> implements Liste<T>
         @Override
         public T next()
         {
+            T denneVerdi;
+            if(!hasNext()) throw new NoSuchElementException("Finens ingen neste");
 
-            throw new UnsupportedOperationException("Ikke laget ennå!");
-           // if(iteratorendringer == endringer){
+            if(iteratorendringer == endringer){
+                fjernOK = true;
+                denneVerdi = denne.verdi;
+                denne=denne.neste;
 
-            //}
+           }else{
+               throw new ConcurrentModificationException("Ikke lov å iterere samtidig som endringer gjøres");
+           }
+
+        return denneVerdi;
 
         }
 

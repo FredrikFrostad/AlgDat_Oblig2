@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class Main_Andreas {
     public static void main(String[] args) {
 
@@ -117,6 +119,7 @@ public class Main_Andreas {
         System.out.println(liste.toString());
 */
 
+/*
         Character[] c = {'A','B','C','D'};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
         System.out.println(liste.toString());
@@ -148,5 +151,31 @@ public class Main_Andreas {
 
         System.out.println(min);
         System.out.println(maks);
+*/
+
+        //Oppgave8
+        String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+
+
+
+        Liste<String> liste = new DobbeltLenketListe<>(navn);
+
+
+        //iterator test
+        Iterator<String> i =liste.iterator();
+        while (i.hasNext()){
+            String verdi = i.next();
+            System.out.println(verdi);
+        }
+
+        System.out.println();
+
+        //forEach testen
+        liste.forEach(s -> System.out.print(s + " "));
+        System.out.println();
+        for (String s : liste) System.out.print(s + " ");
+// Utskrift:
+// Lars Anders Bodil Kari Per Berit
+// Lars Anders Bodil Kari Per Berit
     }
 }
