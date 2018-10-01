@@ -19,7 +19,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
         {
             this(verdi, null, null);
         }
-
     } // Node
 
     // instansvariabler
@@ -195,7 +194,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
         if(nyverdi != null) finnNode(indeks).verdi = nyverdi;
         endringer ++;
         return forrigeVerdi;
-
     }
 
     @Override
@@ -226,53 +224,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         return true;
 */
-        //Fredrik sin kode
- /*
-        //Sjekker om listen er tom, returnerer i så fall false
-        if (antall == 0) return false;
 
-        Node<T> node = hode;
-        int i = 0;
-
-        while(node.neste != null) {
-
-            if (node.verdi.equals(verdi) && i == 0) { //Sletter første node
-                hode = hode.neste;
-                hode.forrige = null;
-                antall--;
-                endringer++;
-                return true;
-            }else if(node.verdi.equals(verdi)) {    //Sletter noder som ligger i mellom hode og hale
-                node.forrige.neste = node.neste;
-                node.neste.forrige = node.forrige;
-                node = null;
-                antall--;
-                endringer++;
-                return true;
-            }
-
-            node = node.neste;
-            i++;
-        }
-        if(hode.verdi.equals(verdi) && antall == 1) {
-            hode = hale =null;
-            antall--;
-            endringer++;
-            return true;
-        }
-        else if(node.verdi.equals(verdi) && i == antall - 1) {   //Sletter siste node
-            hale = hale.forrige;
-            hale.neste = null;
-            antall--;
-            endringer++;
-            return true;
-        }
-        return false;
-
-
-*/
         //min kode
-
         if(verdi == null) return false; //Må brukr verdi == null her. Kan ikke bruke verdi.equals(null) om verdi er null
 
         Node<T> p = hode;
@@ -305,53 +258,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public T fjern(int indeks)
     {
-
-        //Frrdrik sin kode
-        /*
-        indeksKontroll(indeks, false);
-
-        Node<T> node = hode;
-        T ret;
-
-        if (antall == 1) {      //sletter første node når antall = 1
-            ret = node.verdi;
-            hode = hode.neste;
-            node = null;
-            antall--;
-            endringer++;
-            return ret;
-        }
-        if (indeks == 0 && antall > 1) {      //sletter første node når antall > 1
-            ret = node.verdi;
-            hode = hode.neste;
-            hode.forrige = null;
-            node = null;
-            antall--;
-            endringer++;
-            return ret;
-        } else if(indeks == antall-1) {     //sletter siste node
-            ret = node.verdi;
-            hale = hale.forrige;
-            hale.neste = null;
-            antall--;
-            endringer++;
-            return ret;
-        }else {     //sletter node mellom hode og hale
-            int i = 0;
-
-            while(i < indeks) {
-                node = node.neste;
-                i++;
-            }
-            ret = node.verdi;
-            node.forrige.neste = node.neste;
-            node.neste.forrige = node.forrige;
-            node = null;
-            antall--;
-            endringer++;
-        }
-        return ret;
-        */
 
         indeksKontroll(indeks,false);
         if(indeks == 0){
@@ -492,7 +398,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return new DobbeltLenketListeIterator(indeks);
     }
 
-    private class DobbeltLenketListeIterator implements Iterator<T>
+    private class DobbeltLenketListeIterator implements Iterator<T> //Indre Iteratorklasse
     {
         private Node<T> denne;
         private boolean fjernOK;
@@ -540,7 +446,33 @@ public class DobbeltLenketListe<T> implements Liste<T>
         @Override
         public void remove()
         {
-            throw new UnsupportedOperationException("Ikke laget ennå!");
+            //TODO: Må progges ferdig
+            if(false) throw new IllegalStateException("Ikke lov å kalle metoden");
+
+            if(endringer != iteratorendringer){
+                throw new ConcurrentModificationException("Listen er endret");
+            }
+
+            fjernOK = true;
+
+            if(antall == 1){
+                hode = null;
+                hale = null;
+            }
+            if(denne == null){
+                hale = denne.forrige;
+            }
+            else if(denne.forrige == hode){
+                hode = denne.forrige;
+            }
+            else{
+                
+            }
+
+
+
+            denne.forrige = null;
+
         }
 
     } // DobbeltLenketListeIterator
