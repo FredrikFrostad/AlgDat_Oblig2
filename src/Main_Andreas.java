@@ -1,3 +1,4 @@
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public class Main_Andreas {
@@ -155,18 +156,23 @@ public class Main_Andreas {
 
         //Oppgave8
         String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
-
-
-
         Liste<String> liste = new DobbeltLenketListe<>(navn);
-
 
         //iterator test
         Iterator<String> i =liste.iterator();
         while (i.hasNext()){
             String verdi = i.next();
-            System.out.println(verdi);
+            System.out.print(verdi + " ");
         }
+
+        System.out.println();
+
+        Iterator<String> j = new DobbeltLenketListe<String>(navn).iterator(1);
+        while (j.hasNext()){
+            String verdi = j.next();
+            System.out.print(verdi + " ");
+        }
+
 
         System.out.println();
 
@@ -174,6 +180,27 @@ public class Main_Andreas {
         liste.forEach(s -> System.out.print(s + " "));
         System.out.println();
         for (String s : liste) System.out.print(s + " ");
+
+        /*
+        i = liste.iterator();
+        liste.fjern(0); // bruker fjern(indeks) etter at iteratoren er opprettet
+
+        i = liste.iterator();
+        liste.leggInn(8);  // bruker leggInn(T) etter at iteratoren er opprettet
+
+        try {
+            i.next();
+
+            System.out.println
+                    ("Oppgave 8i: ForventetAntallEndringer ikke endret i leggInn(T)!");
+        } catch (Exception e) {
+            if (!(e instanceof ConcurrentModificationException)) {
+                System.out.println("Oppgave 8j: Det kastes feil type unntak!");
+
+            }
+        }*/
+
+
 // Utskrift:
 // Lars Anders Bodil Kari Per Berit
 // Lars Anders Bodil Kari Per Berit

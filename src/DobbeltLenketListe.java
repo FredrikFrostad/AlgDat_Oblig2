@@ -120,6 +120,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
             // Oppdaterer hale sin neste med en ny node. nåværende hale bli den nye noden sin forrige. Hale flyttes bak.
             hale = hale.neste = new Node<>(verdi, hale, null);
         }
+        endringer++;
         antall++;        //En node til er laget
         return true;     //
     }
@@ -504,10 +505,10 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         private DobbeltLenketListeIterator(int indeks)
         {
-            denne = hode;     // denne starter på den første i listen
+            //denne = hode;     // denne starter på den første i listen
+            denne = finnNode(indeks);
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
-            denne = finnNode(indeks);
         }
 
         @Override
@@ -520,16 +521,15 @@ public class DobbeltLenketListe<T> implements Liste<T>
         public T next()
         {
             T denneVerdi;
-            if(!hasNext()) throw new NoSuchElementException("Finens ingen neste");
+            if(!hasNext()) throw new NoSuchElementException("Finnes ingen neste");
 
-            if(iteratorendringer == endringer){
+            if(iteratorendringer != endringer){
+                throw new ConcurrentModificationException("Ikke lov å iterere samtidig som endringer gjøres");
+            }else{
                 fjernOK = true;
                 denneVerdi = denne.verdi;
                 denne=denne.neste;
-
-           }else{
-               throw new ConcurrentModificationException("Ikke lov å iterere samtidig som endringer gjøres");
-           }
+            }
 
         return denneVerdi;
 
