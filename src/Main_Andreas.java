@@ -207,6 +207,8 @@ public class Main_Andreas {
         // Lars Anders Bodil Kari Per Berit
 
         //Oppgave9
+
+  /*
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
 
         for (int k = 1; k <= 13; k++) {
@@ -255,6 +257,36 @@ public class Main_Andreas {
                 System.out.println("Oppgave 9j: Det kastes feil type unntak!");
             }
         }
+*/
 
+        //Oppgave9 test av metoden boolean fjernHvis(Predicate<? super T> sjekk)
+        DobbeltLenketListe<String> liste =
+                new DobbeltLenketListe<>(new String[]
+                        {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        System.out.println("\n"+"Opprinelig liste: ");
+        System.out.println(liste);
+
+
+        System.out.println("\n"+"Fjerning av navn som starter på B: ");
+        liste.fjernHvis(navn -> navn.charAt(0) == 'B'); // fjerner navn som starter med B
+        System.out.println(liste + " " + liste.omvendtString());
+        // Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
+
+        //************MITT PREDICAT TEST PROGRAM************
+        //Lag så for din egen del et predikat som gjør at de navnene som inneholder e fjernes.
+        //Og så et der kun de navnene som inneholder 5 bokstaver blir igjen.
+
+        System.out.println("\n"+ "Mitt predikat, fjerner navn som inneholder e:");
+        DobbeltLenketListe<String> minListe =
+                new DobbeltLenketListe<>(new String[]
+                        {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        minListe.fjernHvis(navn -> navn.contains("e")); // fjerner navn som starter med B
+        System.out.println(minListe + " " + minListe.omvendtString());
+
+        System.out.println("\n"+ "Mitt predikat2, kun navn med lengde 5:");
+        DobbeltLenketListe<String> minListe2 = new DobbeltLenketListe<>(
+                new String[] {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        minListe2.fjernHvis(navn -> navn.length()!=5); // sender inn kun navn som har lengde 5
+        System.out.println(minListe2 + " " + minListe2.omvendtString());
     }
 }
