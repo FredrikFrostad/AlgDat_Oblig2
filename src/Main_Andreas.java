@@ -295,7 +295,7 @@ public class Main_Andreas {
 
         //Oppg10
         DobbeltLenketListe<String> liste =
-                new DobbeltLenketListe<>(new String[]{"C","B","A"});
+                new DobbeltLenketListe<>(new String[]{"C","B","Z","D","A"});
         Comparator<String> c = Comparator.naturalOrder();
         System.out.println(liste);
         liste.sorter(liste, c);

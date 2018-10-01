@@ -384,15 +384,15 @@ public class DobbeltLenketListe<T> implements Liste<T>
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
     {
         for (int i = 1; i < liste.antall(); i++){  // starter med i = 1
-            int  j = i - 1; //
-            T verdiRefNode = liste.hent(i); //Henter hode.neste.verdi og mellomlagrer i verdi
-            T verdiIndreNode = liste.hent(j);
 
-            //Loop går så lenge verdiRefNode er mindre enn verdiIndreNode.
-            for (; j >= 0 && c.compare(verdiRefNode, verdiIndreNode) < 0; j--) {
-                verdiIndreNode = liste.hent(j); //Mellomlagrer indre node
-                liste.fjern(j); //fjerner noden der den lå
-                liste.leggInn(j+1,verdiIndreNode); //Legger inn noden etter neste node.
+            int  j = i - 1; //
+            T verdiRefNode = liste.hent(i); //Henter inn referanse node som det skal sammenlignes mot for indre løkke
+            //Loop går så lenge noden til venstre for refNode har større verdi enn verdien til refNode. refNode < InternNode
+            for (; j >= 0 && c.compare(verdiRefNode, liste.hent(j)) < 0; j--) {
+                T verdiIndreNode = liste.hent(j); //Mellomlagrer noden som skal midlertidig fjernes fra listen
+                liste.fjern(j); //Røsker ut noden forran refNode når den har en større verdi enn refNode
+                //Noden som ble fjernet legges nå inn etter refNode. Resulterer i at RefNode indirekte beveger seg til venstre
+                liste.leggInn(j+1,verdiIndreNode);
             }
         }
     }
