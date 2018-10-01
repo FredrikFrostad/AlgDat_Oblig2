@@ -25,7 +25,7 @@ public class FredriksTesteklasse {
         for (Iterator<Integer> iter = liste.iterator(); iter.hasNext();) {
             int verdi = iter.next();
             if (verdi % 2 == 1) {
-
+                iter.remove();
             }
         }
 

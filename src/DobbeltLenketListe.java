@@ -475,10 +475,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hode.forrige = null;
                 antall--;
             }else {
-                Node<T> node = denne;
-                node.forrige.neste = node.neste;
-                node.neste.forrige = node.forrige;
-                node = null;
+                Node<T> temp = denne;
+                denne.forrige.neste = denne.neste;
+                denne.neste.forrige = denne.forrige;
+                temp = null;
                 antall--;
             }
         }
