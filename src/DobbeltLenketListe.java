@@ -465,21 +465,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             if (antall == 1) {      //fjerner eneste verdi
                 hode = hale = null;
                 antall--;
+                endringer++;
+                iteratorendringer++;
             }
             else if (denne == null) {      //fjerner siste node
                 hale = hale.forrige;
                 hale.neste = null;
                 antall--;
+                endringer++;
+                iteratorendringer++;
             } else if (denne.forrige == hode) {     //fjerner første node
                 hode = hode.neste;
                 hode.forrige = null;
                 antall--;
+                endringer++;
+                iteratorendringer++;
             }else {
-                Node<T> temp = denne;
-                denne.forrige.neste = denne.neste;
-                denne.neste.forrige = denne.forrige;
-                temp = null;
+                //TODO: fjern print!!
+                Node<T> node = denne.forrige;
+                node.forrige.neste = denne;
+                node.neste.forrige = node.forrige;
+                node = null;
                 antall--;
+                endringer++;
+                iteratorendringer++;
             }
         }
     }
