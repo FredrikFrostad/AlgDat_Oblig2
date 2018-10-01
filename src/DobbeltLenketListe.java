@@ -384,7 +384,26 @@ public class DobbeltLenketListe<T> implements Liste<T>
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
     {
 
-        int j = 1;
+        int j = 0;
+
+        for (int i = 1; i < liste.antall(); i++) {
+            T verdi = liste.hent(j); //Henter hode og mellomlagrer i verdi
+            T test1 = verdi;
+            T test2 = liste.hent(i);
+
+            boolean cmp = c.compare(verdi, liste.hent(i)) >0; //Sammenligner verdi fra iterator med hent verdi. i ligger en forran hent(j).
+            if(cmp){
+                T tmp = liste.hent(i-1); //Mellomlagrer verdien på indeks 0 (node0)
+                liste.fjern(i-1); //Fjerner først nåværende node på indeks j (node0)
+                liste.leggInn(i,tmp);
+            }
+            j++;
+        }
+
+
+
+
+        /*
         for (Iterator<T> i = liste.iterator(); i.hasNext(); ) {
             T verdi = i.next();
 
@@ -400,6 +419,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
             }
             j++;
         }
+        */
     }
 
     //Fra til kontroll med generics
