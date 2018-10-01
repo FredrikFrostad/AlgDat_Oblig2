@@ -447,7 +447,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
         public void remove()
         {
             //TODO: Må progges ferdig
-            if(false) throw new IllegalStateException("Ikke lov å kalle metoden");
+            //(denne == hode)//Betyr at 'denne' ikke er oppdatert med next metoden, og kan det er ikke lov å fjerne
+            //(antall ==0)//Betyr listen er tom, og kan det er ikke lov å fjerne noe fra en tom liste.
+            if(antall ==0||denne==hode) throw new IllegalStateException("Ikke lov å kalle metoden");
 
             if(endringer != iteratorendringer){
                 throw new ConcurrentModificationException("Listen er endret");
@@ -470,6 +472,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
             }
             else{
+
+                if(denne == hode){
+                  //  throw new IllegalStateException("Denne er ikke oppdatert med next motoden");
+                }else{
+
+                }
+
                 denne.forrige.forrige.neste = denne;
                 denne.forrige = denne.forrige.forrige;
 

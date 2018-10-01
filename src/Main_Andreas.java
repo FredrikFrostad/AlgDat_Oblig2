@@ -223,5 +223,38 @@ public class Main_Andreas {
         System.out.println(liste.toString());
 
         System.out.println(liste.omvendtString());
+
+
+        Iterator<Integer> j = liste.iterator();
+
+        for (int k = 1; k <= 5; k++) {
+            liste.leggInn(k);
+        }
+        Iterator<Integer> i1 = liste.iterator();
+        Iterator<Integer> i2 = liste.iterator();
+        i1.next();
+        i1.remove();
+        try {
+            i2.next();
+            System.out.println("Oppgave 9g: Her skal det kastes et unntak!");
+        } catch (Exception e) {
+            if (!(e instanceof ConcurrentModificationException)) {
+                System.out.println("Oppgave 9h: Det kastes feil type unntak!");
+            }
+        }
+
+        j = liste.iterator();
+
+        try {
+            j.next();
+            j.remove();
+            j.remove();
+            System.out.println("Oppgave 9i: Her skal det kastes et unntak!");
+        } catch (Exception e) {
+            if (!(e instanceof IllegalStateException)) {
+                System.out.println("Oppgave 9j: Det kastes feil type unntak!");
+            }
+        }
+
     }
 }
