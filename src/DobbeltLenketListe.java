@@ -383,43 +383,18 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
     {
+        for (int i = 1; i < liste.antall(); i++){  // starter med i = 1
+            int  j = i - 1; //
+            T verdiRefNode = liste.hent(i); //Henter hode.neste.verdi og mellomlagrer i verdi
+            T verdiIndreNode = liste.hent(j);
 
-        int j = 0;
-
-        for (int i = 1; i < liste.antall(); i++) {
-            T verdi = liste.hent(j); //Henter hode og mellomlagrer i verdi
-            T test1 = verdi;
-            T test2 = liste.hent(i);
-
-            boolean cmp = c.compare(verdi, liste.hent(i)) >0; //Sammenligner verdi fra iterator med hent verdi. i ligger en forran hent(j).
-            if(cmp){
-                T tmp = liste.hent(i-1); //Mellomlagrer verdien på indeks 0 (node0)
-                liste.fjern(i-1); //Fjerner først nåværende node på indeks j (node0)
-                liste.leggInn(i,tmp);
+            //Loop går så lenge verdiRefNode er mindre enn verdiIndreNode.
+            for (; j >= 0 && c.compare(verdiRefNode, verdiIndreNode) < 0; j--) {
+                verdiIndreNode = liste.hent(j); //Mellomlagrer indre node
+                liste.fjern(j); //fjerner noden der den lå
+                liste.leggInn(j+1,verdiIndreNode); //Legger inn noden etter neste node.
             }
-            j++;
         }
-
-
-
-
-        /*
-        for (Iterator<T> i = liste.iterator(); i.hasNext(); ) {
-            T verdi = i.next();
-
-            T test1 = verdi;
-            T test2 = liste.hent(j);
-
-            boolean cmp = c.compare(verdi, liste.hent(j)) >0; //Sammenligner verdi fra iterator med hent verdi. i ligger en forran hent(j).
-            if(cmp){
-
-                T tmp = liste.hent(j-1); //Mellomlagrer verdien på indeks 0 (node0)
-                liste.fjern(j-1); //Fjerner først nåværende node på indeks j (node0)
-                liste.leggInn(j,tmp);
-            }
-            j++;
-        }
-        */
     }
 
     //Fra til kontroll med generics
