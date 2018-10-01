@@ -383,8 +383,105 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+
+        int j = 1;
+        for (Iterator<T> i = liste.iterator(); i.hasNext(); ) {
+            T verdi = i.next();
+
+            T test1 = verdi;
+            T test2 = liste.hent(j);
+
+            boolean cmp = c.compare(verdi, liste.hent(j)) >0; //Sammenligner verdi fra iterator med hent verdi. i ligger en forran hent(j).
+            if(cmp){
+
+                T tmp = liste.hent(j-1); //Mellomlagrer verdien på indeks 0 (node0)
+                liste.fjern(j-1); //Fjerner først nåværende node på indeks j (node0)
+                liste.leggInn(j,tmp);
+            }
+            j++;
+        }
     }
+
+    //Fra til kontroll med generics
+    public static <T> void fratilKontroll(T[] a , int fra, int til) {
+        if (a == null)
+            throw new NullPointerException( "Tabellen i parameterlisten er tom!" );
+
+        if (fra < 0)                                  // fra er negativ
+            throw new ArrayIndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > a.length)                          // til er utenfor tabellen
+            throw new ArrayIndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + a.length + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+
+        if (fra == til) throw new NoSuchElementException
+                ("fra(" + fra + ") = til(" + til + ") - tomt tabellintervall!");
+    }
+
+    //Bytt med generics
+    public static <T> void bytt(T[] a, int i, int j){
+        T temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    //Quicksort with generics
+    private static <T> int parter(T[] a, int v, int h, T skilleverdi, Comparator <? super T> c)
+    {
+        while (true)                                  // stopper når v > h
+        {
+
+            while (v <= h && (c.compare(a[v], skilleverdi)<0)) v++;   // h er stoppverdi for v
+            while (v <= h && (c.compare(a[h],skilleverdi)>=0)) h--;  // v er stoppverdi for h
+
+            if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
+            else  return v;  // a[v] er nåden første som ikke er mindre enn skilleverdi
+            while (c.compare(a[v],skilleverdi) < 0) v++;
+            while (c.compare(skilleverdi,a[h]) <= 0) h--;
+        }
+    }
+
+    private static <T> int parter(T[] a, T skilleverdi, Comparator<? super T> c){
+        return parter(a,0,a.length-1,skilleverdi,c);
+    }
+
+
+
+    private static <T> int sParter(T[] a, int v, int h, int indeks, Comparator<? super T> c)
+    {
+        bytt(a, indeks, h);           // skilleverdi a[indeks] flyttes bakerst
+        int pos = parter(a, v, h - 1, a[h],c);  // partisjonerer a[v:h − 1]
+        bytt(a, pos, h);              // bytter for å få skilleverdien på rett plass
+        return pos;                   // returnerer posisjonen til skilleverdien
+    }
+
+    private static <T> int sParter(T[] a, int indeks, Comparator<? super T> c)   // bruker hele tabellen
+    {
+        return sParter(a,0,a.length-1,indeks,c); // v = 0 og h = a.lenght-1
+    }
+
+    private static <T> void kvikksortering0(T[] a , int v, int h, Comparator<? super T> c){
+        if (v >= h) return; //a[v:h] er tomt eller har maks ett element
+        int k = sParter(a, v, h, (v+h)/2,c); //Bruker midtverdien
+        kvikksortering0(a,v, k-1,c); //Sorterer intervallet a[v:k-1]
+        kvikksortering0(a,k+1,h,c); //Sorterer intervallet a[k+1:h]
+    }
+
+    private static <T> void kvikksortering(T[] a, int fra, int til, Comparator<? super T> c){ //a[fra:til>
+        fratilKontroll(a,fra,til);
+        kvikksortering0(a,fra,til-1,c); //v = fra, h=til-1
+    }
+
+    private static <T> void kvikksortering(T[] a, Comparator<? super T> c){
+        fratilKontroll(a,0,a.length);
+        kvikksortering0(a,0,a.length-1,c);
+    }
+
 
     @Override
     public Iterator<T> iterator()

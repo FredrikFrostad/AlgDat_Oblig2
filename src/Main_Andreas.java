@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
@@ -260,6 +261,7 @@ public class Main_Andreas {
 */
 
         //Oppgave9 test av metoden boolean fjernHvis(Predicate<? super T> sjekk)
+       /*
         DobbeltLenketListe<String> liste =
                 new DobbeltLenketListe<>(new String[]
                         {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
@@ -288,5 +290,19 @@ public class Main_Andreas {
                 new String[] {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
         minListe2.fjernHvis(navn -> navn.length()!=5); // sender inn kun navn som har lengde 5
         System.out.println(minListe2 + " " + minListe2.omvendtString());
+*/
+
+
+        //Oppg10
+        DobbeltLenketListe<String> liste =
+                new DobbeltLenketListe<>(new String[]
+                        {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        Comparator<String> c = Comparator.naturalOrder();
+        System.out.println(liste);
+        liste.sorter(liste, c);
+        System.out.println(liste);
+
+
+
     }
 }
