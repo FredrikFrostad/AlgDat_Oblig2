@@ -433,6 +433,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
             p.neste = null;
             p.verdi = null;
             p = q;
+
+            endringer++; //Hver element/node som nullstilles er en endring
         }
 
         //Setter hode, og hale til null, og antall til 0
