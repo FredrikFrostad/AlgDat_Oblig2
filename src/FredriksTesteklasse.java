@@ -1,5 +1,7 @@
 import org.w3c.dom.Node;
 
+import java.util.Iterator;
+
 public class FredriksTesteklasse {
 
     public static void main(String[] args) {
@@ -12,9 +14,20 @@ public class FredriksTesteklasse {
         //System.out.println(liste.toString());
         //System.out.println(((DobbeltLenketListe<String>) liste).omvendtString());
 //
-        //Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
-        //DobbeltLenketListe<Character> liste2 = new DobbeltLenketListe<>(c);
+        Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste);
+        System.out.println(liste.omvendtString());
 
+        //for (Iterator<Character> iter = liste.iterator())
+
+        System.out.println(liste);
+        System.out.println(liste.omvendtString());
+    }
+}
+
+//Kode for testing av effektivitet oppgave 7
+/*
          DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
          for (int i = 0; i < 10000000;i++) {
              liste.leggInn(i);
@@ -36,11 +49,5 @@ public class FredriksTesteklasse {
         slutt = System.currentTimeMillis();
         System.out.println(slutt-start);
 
-        //System.out.println(liste);
-        //System.out.println(liste.omvendtString());
-//
-//
-        //System.out.println(liste);
-        //System.out.println(liste.omvendtString());
-    }
-}
+
+ */

@@ -1,4 +1,4 @@
-import java.util.*;
+  import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -59,6 +59,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @SuppressWarnings("uncheked")
     public DobbeltLenketListe(T[] a) {
+
 
         this();
 
@@ -174,7 +175,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
              endringer++;
         }else {         //legger inn i mellom to andre verdier
             Node<T> node = hode;
+
             for (int i = 0; i < indeks - 1; i++ ) node = node.neste;
+
             node.neste = new Node<>(verdi, node, node.neste);
             node.neste.neste.forrige = node.neste;
             antall++;
@@ -455,28 +458,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             if (iteratorendringer != endringer) {
                 throw new ConcurrentModificationException
-                        ("listen er endtret!");
+                        ("listen er endret!");
             }
             fjernOK = false;
 
             if (antall == 1) {      //fjerner eneste verdi
                 hode = hale = null;
                 antall--;
-                endringer++;
             }
             else if (denne == null) {      //fjerner siste node
                 hale = hale.forrige;
                 hale.neste = null;
                 antall--;
-                endringer++;
             } else if (denne.forrige == hode) {     //fjerner første node
                 hode = hode.neste;
                 hode.forrige = null;
                 antall--;
-                endringer++;
             }else {
-
+                Node<T> node = denne;
+                node.forrige.neste = node.neste;
+                node.neste.forrige = node.forrige;
+                node = null;
+                antall--;
             }
         }
     }
 } // DobbeltLenketListe
+
