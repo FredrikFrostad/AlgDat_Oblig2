@@ -146,5 +146,7 @@ public class Main_Andreas {
         System.out.println("min*1.5="+ min*1.5);
         if (maks > 1.5 * min) System.out.println("Maks > 1.5*min... ikke lov");
 
+        System.out.println(min);
+        System.out.println(maks);
     }
 }

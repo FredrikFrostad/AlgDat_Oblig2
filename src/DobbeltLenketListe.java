@@ -278,11 +278,17 @@ public class DobbeltLenketListe<T> implements Liste<T>
             return temp;
         }
         else{
-            Node<T> p = finnNode(indeks);
+           // Node<T> p = finnNode(indeks);
 
-            //Node<T> p = hode;
-            //for (int i = 0; i < indeks ; i++) p = p.neste;
+            Node<T> p = hode;
+            for (int i = 0; i < indeks ; i++) p = p.neste;
 
+            /*
+            int j=0;
+            while (j < indeks) {
+                p = p.neste;
+                j++;
+            }*/
 
             T temp = p.verdi;
             p.neste.forrige = p.forrige; //Oppdaterer neste sin forrige peker
@@ -413,7 +419,12 @@ public class DobbeltLenketListe<T> implements Liste<T>
         @Override
         public T next()
         {
+
             throw new UnsupportedOperationException("Ikke laget ennå!");
+           // if(iteratorendringer == endringer){
+
+            //}
+
         }
 
         @Override
