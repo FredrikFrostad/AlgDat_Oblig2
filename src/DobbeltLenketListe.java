@@ -29,6 +29,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;   // antall endringer i listen
 
     // hjelpemetode
+
+    /**
+     * Metode som finner en node på angitt indeks. Metoden søker fra hode dersom
+     * index < antall/2, og fra hale dersom indeks > antall/2
+     * @param indeks plassering til noden vi ønsker å hente
+     * @return noden som korresponderer med parameterverdien
+     */
     private Node<T> finnNode(int indeks)
     {
         indeksKontroll(indeks, false);
@@ -68,14 +75,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                     ("parameter kan ikke være null!");
         }
         int i= 0;
-        while (i < a.length && a[i] == null) i++;
+        while (i < a.length && a[i] == null) i++;       //hopper over alle null-verdier som ligger først i listen
 
         if (i < a.length) {
-            Node<T> node = hode = hale = new Node<>(a[i], null, null);
+            Node<T> node = hode = hale = new Node<>(a[i], null, null);  //setter første verdi != null
             antall++;
 
             for (i++; i < a.length; i++) {
 
+                //setter alle resterende verdier i arrayet og hopper over nullverdier
                 if (a[i] != null) {
                     node = node.neste = new Node<>(a[i], node, null);
                     antall++;
@@ -85,10 +93,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
-    // |liste
+    /**
+     * Lager en subliste av nodene i intervallet [fra, til>
+     * @param fra starten av intervallet
+     * @param til slutten av intervallet
+     * @return et nytt listeobjekt bestående av nodene i intervallet
+     */
     public Liste<T> subliste(int fra, int til)
     {
-        fratilKontroll(antall, fra, til);
+        fratilKontroll(antall, fra, til);   //sjekker at intervallet e rgyldig
 
         int i = fra;
 
@@ -108,6 +121,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
+    /**
+     * Metode som sjekker et intervall gyldighet
+     * @param antall antall elementer i listen intervallet er en del av
+     * @param fra starten på intervallet
+     * @param til slutten på intervallet
+     */
     public void fratilKontroll(int antall, int fra, int til) {
         if (fra < 0)                                  // fra er negativ
             throw new IndexOutOfBoundsException
@@ -123,29 +142,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-
+    /**
+     * Metode som returnere antaller noder i en liste
+     * @return
+     */
     @Override
     public int antall()
     {
         return antall;
     }
 
+    /**
+     * Metode som sjekker om en liste er tom
+     * @return true dersom tom, ellers false
+     */
     @Override
     public boolean tom()
     {
         return antall == 0;
     }
 
+    /**
+     * Metode som legger inn en verdi bakerst i en liste
+     * @param verdi verdien som skal legges inn
+     * @return tue dersom verdien blir lagt inn
+     */
     @Override
     public boolean leggInn(T verdi)
     {
         Objects.requireNonNull(verdi, "nullverdi er ikke tillatt!");
 
-        if (antall == 0) {
+        if (antall == 0) {  //Sjekker om listen er tom og legger i så fall inn verdien som første node
             Node<T> node = hode = hale = new Node<>(verdi);
             antall++;
             endringer++;
-        }else {
+        }else {     //legger inn verdien som siste node dersom listen ikke er tom
             hale = hale.neste = new Node<>(verdi,hale,null);
             antall++;
             endringer++;
@@ -153,16 +184,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return true;
     }
 
+    /**
+     * Metode som legger inn en verdi på en indeks gitt som parameter
+     * @param indeks plasseringen i listen der verdien skal legges inn
+     * @param verdi data som skal legges inn i listen
+     */
     @Override
     public void leggInn(int indeks, T verdi)
     {
         Objects.requireNonNull(verdi, "nullverdier er ikke tillatt!");
         indeksKontroll(indeks, true);
-        if (antall == 0) {      //legger inn i tom liste
+        if (antall == 0) {                                      //legger inn i tom liste
             Node<T> node = hode = hale = new Node<>(verdi);
             antall++;
             endringer++;
-        }else if (indeks == 0 && antall > 0) {      //legger inn først i listen
+        }else if (indeks == 0 && antall > 0) {                  //legger inn først i listen
             Node node = hode;
             node.forrige = new Node<>(verdi, null, node);
             hode = node.forrige;
@@ -173,7 +209,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = hale.neste = new Node<>(verdi,hale,null);
             antall++;
              endringer++;
-        }else {         //legger inn i mellom to andre verdier
+        }else {                                                    //legger inn i mellom to andre verdier
             Node<T> node = hode;
 
             for (int i = 0; i < indeks - 1; i++ ) node = node.neste;
@@ -185,12 +221,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
+    /**
+     * Metode som sjekker om en verdi finnes i listen
+     * @param verdi verdien vi skal søke etter
+     * @return true dersom verdien finnes i listen, ellers false
+     */
     @Override
     public boolean inneholder(T verdi)
     {
         return indeksTil(verdi) != -1;
     }
 
+    /**
+     * Metode som henter verdien på en gitt indeks
+     * @param indeks indeksen vi ønsker verdien fra
+     * @return verdien som ligger på indeksen gitt som parameter
+     */
     @Override
     public T hent(int indeks)
     {
@@ -198,6 +244,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return finnNode(indeks).verdi;
     }
 
+    /**
+     *      * @param verdi
+     * @return
+     */
     @Override
     public int indeksTil(T verdi)
     {
@@ -405,15 +455,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             liste.leggInn(1, value1);
         }
 
-        for (int i = 0; i < liste.antall(); i++) {
-            value1 = liste.hent(i);
-
-            for (int j = i; j < liste.antall(); j++) {
-                value2 = liste.hent(j);
+        for (int i = 0; i < liste.antall() - 1; i++) {
+            for (int j = 0; j < liste.antall() - 1; j++) {
+                value1 = liste.hent(j);
+                value2 = liste.hent(j+1);
 
                 if (c.compare(value1,value2) > 0) {
-                    liste.fjern(i);
-                    liste.leggInn(j,value1);
+                    liste.fjern(j);
+                    liste.leggInn(j + 1 ,value1);
                 }
             }
         }

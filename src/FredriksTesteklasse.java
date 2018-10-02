@@ -20,8 +20,9 @@ public class FredriksTesteklasse {
         //DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(new String[] {"Birger", "Lars","Anders",
         //"Bodil","Kari","Per","Berit"});
         //for (int i = 0; i <=13;i++) liste.leggInn((Integer)i);
-        Integer[] c = {6,5,4,3,2,1};
+        Integer[] c = {7,2,6,3,5,4,1};
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(c);
+        //DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(new String[]{"G", "B", "F", "C", "E", "D", "A"});
 
         System.out.println(liste);
         //System.out.println(liste.omvendtString());
