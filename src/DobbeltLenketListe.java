@@ -1,5 +1,6 @@
 import java.util.*;
 
+@SuppressWarnings("Unchecked")
 public class DobbeltLenketListe<T> implements Liste<T>
 {
     private static final class Node<T>   // en indre nodeklasse

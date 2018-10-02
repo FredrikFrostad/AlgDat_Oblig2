@@ -295,19 +295,52 @@ public class Main_Andreas {
 
 
         //Oppg10
+        //DobbeltLenketListe<String> liste =
+        //        new DobbeltLenketListe<>(new String[]{"C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N","C","B","Z","D","A","T","J","K","N"});
+
+
+
+
+        DobbeltLenketListe<Integer> intListe = new DobbeltLenketListe<>();
+
+        for (int i = 4000; i > 0; i--) intListe.leggInn(Integer.valueOf(i));
+        System.out.println("Antall integer i listen: "+intListe.antall());
+
+        Comparator<Integer> intC = Comparator.naturalOrder();
+
+        long intBefore = System.currentTimeMillis();
+        intListe.sorter(intListe, intC);
+        long IntAfter =  System.currentTimeMillis()-intBefore;
+        System.out.println("Kjøretid med " + intListe.antall() + " = " + IntAfter + " ms" );
+
+
+        System.out.println();
         DobbeltLenketListe<String> liste =
-                new DobbeltLenketListe<>(new String[]{"C","B","Z","D","A"});
+                new DobbeltLenketListe<>(new String[]{"C","B","Z","D","A","T","J"});
+
         Comparator<String> c = Comparator.naturalOrder();
         System.out.println(liste);
+        System.out.println(liste.antall());
+
+        long before = System.currentTimeMillis();
         liste.sorter(liste, c);
+        long after =  System.currentTimeMillis()-before;
+
+        System.out.println(after);
         System.out.println(liste);
         System.out.println();
+
+
 
         String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
         Liste<String> liste1 = new DobbeltLenketListe<>(navn);
         //Liste<String> liste2 = new TabellListe<>(navn);
         //Liste<String> liste3 = new EnkeltLenketListe<>(navn);
+
+
         DobbeltLenketListe.sorter(liste1, Comparator.naturalOrder());
+
+        System.out.println("Tiden det tok å kjøre sortering av DobbeltLenketListe: " + after);
         //DobbeltLenketListe.sorter(liste2, Comparator.naturalOrder());
         //DobbeltLenketListe.sorter(liste3, Comparator.naturalOrder());
         System.out.println(liste1); // [Anders, Berit, Bodil, Kari, Lars, Per]
@@ -316,6 +349,7 @@ public class Main_Andreas {
         // Tabellen navn er upåvirket:
         System.out.println(Arrays.toString(navn));
         // [Lars, Anders, Bodil, Kari, Per, Berit]
+
 
     }
 }
