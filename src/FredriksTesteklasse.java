@@ -1,5 +1,6 @@
 import org.w3c.dom.Node;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class FredriksTesteklasse {
@@ -14,23 +15,21 @@ public class FredriksTesteklasse {
         //System.out.println(liste.toString());
         //System.out.println(((DobbeltLenketListe<String>) liste).omvendtString());
 //
-        //Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
-        //DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
-        for (int i = 0; i <=13;i++) liste.leggInn((Integer)i);
-        System.out.println(liste);
-        System.out.println(liste.omvendtString());
 
-        for (Iterator<Integer> iter = liste.iterator(); iter.hasNext();) {
-            int verdi = iter.next();
-            if (verdi % 2 == 1) {
-                iter.remove();
-            }
-        }
+        //DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(new String[] {"Birger", "Lars","Anders",
+        //"Bodil","Kari","Per","Berit"});
+        //for (int i = 0; i <=13;i++) liste.leggInn((Integer)i);
+        Integer[] c = {6,5,4,3,2,1};
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(c);
 
         System.out.println(liste);
-        System.out.println(liste.omvendtString());
+        //System.out.println(liste.omvendtString());
+
+        DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+
+        System.out.println(liste);
+        //System.out.println(liste.omvendtString());
     }
 }
 

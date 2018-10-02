@@ -1,6 +1,6 @@
   import java.util.*;
 
-
+@SuppressWarnings("unchecked")
 public class DobbeltLenketListe<T> implements Liste<T> {
 
     private static final class Node<T> {   // en indre nodeklasse
@@ -57,7 +57,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         endringer = 0;
     }
 
-    @SuppressWarnings("uncheked")
+
     public DobbeltLenketListe(T[] a) {
 
 
@@ -394,8 +394,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if (liste.antall() < 2) return;
+
+        T value1 = liste.hent(0);
+        T value2 = liste.hent(1);
+
+
+        if (c.compare(value1, value2) > 0) {
+            liste.fjern(0);
+            liste.leggInn(1, value1);
+        }
+
+        for (int i = 0; i < liste.antall(); i++) {
+            value1 = liste.hent(i);
+
+            for (int j = i; j < liste.antall(); j++) {
+                value2 = liste.hent(j);
+
+                if (c.compare(value1,value2) > 0) {
+                    liste.fjern(i);
+                    liste.leggInn(j,value1);
+                }
+            }
+        }
     }
+
 
     @Override
     public Iterator<T> iterator()
@@ -480,8 +503,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall--;
                 endringer++;
                 iteratorendringer++;
-            }else {
-                //TODO: fjern print!!
+            }else {                                 //fjerner node mellom to noder
                 Node<T> node = denne.forrige;
                 node.forrige.neste = denne;
                 node.neste.forrige = node.forrige;
