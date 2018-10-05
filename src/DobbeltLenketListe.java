@@ -200,7 +200,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean fjern(T verdi)
     {
-       /*
+
+        //test
+        /*
        //gammel kode
         if(verdi == null) return false; //Må brukr verdi == null her. Kan ikke bruke verdi.equals(null) om verdi er null
 
