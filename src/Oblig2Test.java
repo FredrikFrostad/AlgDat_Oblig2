@@ -39,7 +39,7 @@ public class Oblig2Test {
                             + antallFeil + " feil eller svakhet(er)!");
         }
     }
-
+ 
     ////// Oppgave 1 /////////////////////
 
     public static int oppgave1() {
